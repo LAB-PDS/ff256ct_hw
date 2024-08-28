@@ -1,2 +1,6 @@
 *.out
 *.csv
+# ignore ALL .log files
+*.log
+.vscode/
+.*/
