@@ -19,7 +19,7 @@ module ff256_mult_multiplier(f_in, p_in, p_out);
     ff256_mult_xfx_mult m6 (x6fx, x7fx);
 
     assign p0 = p_in[0]? f_in : 8'd0;
-    assign p1 = p_in[1]? xfx : 8'd0;
+    assign p1 = p_in[1]? xfx  : 8'd0;
     assign p2 = p_in[2]? x2fx : 8'd0;
     assign p3 = p_in[3]? x3fx : 8'd0;
     assign p4 = p_in[4]? x4fx : 8'd0;
