@@ -56,7 +56,7 @@ unsigned int calculaChecksum(char* linhaIn);
 /*
 * Converte um vetor de char em um inteiro sem sinal
 */
-unsigned int converteVetorToInt(char* vetorIn, int comprimento);
+unsigned int converteVetorToInt(char* vetorIn, int comprimento, int inv);
 
 /*
 * Converte um de char em um inteiro sem sinal

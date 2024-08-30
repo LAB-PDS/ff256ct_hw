@@ -33,9 +33,9 @@ linhaHEX desempacotaLinha(char* linhaIn)
         endereco[i] = linhaIn[INIT_ENDERECO+i];
     }
     
-    linhaOut.comprimento = converteVetorToInt(comprimento,MAX_COMPRIMENTO);
-    linhaOut.tipo        = converteVetorToInt(tipo       ,MAX_COMPRIMENTO);
-    linhaOut.endereco    = converteVetorToInt(endereco   ,MAX_ENDERECO);
+    linhaOut.comprimento = converteVetorToInt(comprimento,MAX_COMPRIMENTO,1);
+    linhaOut.tipo        = converteVetorToInt(tipo       ,MAX_COMPRIMENTO,1);
+    linhaOut.endereco    = converteVetorToInt(endereco   ,MAX_ENDERECO,1);
 
     if(linhaOut.comprimento > 0)//tem dados
     {
@@ -46,7 +46,7 @@ linhaHEX desempacotaLinha(char* linhaIn)
         numWords = linhaOut.comprimento/4;            //quantas palavras de 32 bits temos
         for(i = 0; i < numWords; i++)
         {
-            linhaOut.dados[i] = converteVetorToInt( (dados + TAMANHO_WORD*i), TAMANHO_WORD);
+            linhaOut.dados[i] = converteVetorToInt( (dados + TAMANHO_WORD*i), TAMANHO_WORD, 1);
         }
 
     }
@@ -56,7 +56,7 @@ linhaHEX desempacotaLinha(char* linhaIn)
     {
         checksum[i] = linhaIn[initChecksum+i];
     }
-    linhaOut.checksum  = converteVetorToInt(checksum   ,MAX_CHECKSUM);    
+    linhaOut.checksum  = converteVetorToInt(checksum   ,MAX_CHECKSUM, 1);    
 
     return(linhaOut);
 }
@@ -82,11 +82,11 @@ unsigned int calculaChecksum(char* linhaIn)
         comprimento[i] = linhaIn[INIT_COMPRIMENTO+i];
     }
     
-    numComprimento = converteVetorToInt(comprimento,MAX_COMPRIMENTO);
+    numComprimento = converteVetorToInt(comprimento,MAX_COMPRIMENTO,1);
 
     for(i = 0; i < MAX_BYTES/2; i++)
     {
-        linha[i] = converteVetorToInt( (linhaIn + TAMANHO_BYTE*i), TAMANHO_BYTE);;
+        linha[i] = converteVetorToInt( (linhaIn + TAMANHO_BYTE*i), TAMANHO_BYTE,1);
     }
 
     initChecksum  = numComprimento + INIT_DADOS/2;
@@ -113,14 +113,28 @@ unsigned int calculaChecksum(char* linhaIn)
 /*
 * Converte um vetor de char em um inteiro sem sinal
 */
-unsigned int converteVetorToInt(char* vetorIn, int comprimento)
+unsigned int converteVetorToInt(char* vetorIn, int comprimento, int inv)
 {
     unsigned int i;
     unsigned int valorOut = 0; 
-    for(i = 0; i < comprimento; i++)
+    unsigned int valorAux = 0; 
+    if(inv)
     {
-        valorOut += converteASCIItoInt(vetorIn[comprimento-i-1]) << 4*i;
-        //valorOut += converteASCIItoInt(vetorIn[i]) << 4*i;
+        for(i = 0; i < comprimento; i++)
+        {
+        
+            valorOut += converteASCIItoInt(vetorIn[comprimento-i-1]) << 4*i;
+        }
+        
+    }
+    else
+    {
+        for(i = 0; i < comprimento/2; i++)
+        {
+            valorAux = converteASCIItoInt(vetorIn[2*i+0]) << 4;
+            valorAux += converteASCIItoInt(vetorIn[2*i+1]);
+            valorOut += valorAux << 8*i;
+        }
     }
     
     return(valorOut);
