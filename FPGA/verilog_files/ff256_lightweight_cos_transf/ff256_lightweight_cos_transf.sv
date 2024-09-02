@@ -2,12 +2,12 @@
 Optimized computation of X_out[:] = F256CT[:,:]*x_in[:].
 x_in[:] shall be furnished sequentially in 8 clock cycle in the order x0, x1, x2..., x7.
 */
-`include "./verilog_files/ff256_cosine_transform/ff256_cosine_transform_defines.sv"
+`include "./verilog_files/ff256_cosine_transform/ff256_mult_by_const_defines.sv"
 
-module ff256_cosine_transform_direct
-#(
-    parameter logic [7:0] betas [0:7][0:7] =  FF256CT_I_ROW_0
-)
+module ff256_lightweight_cos_transf
+/*#(
+
+)*/
 (
     input  [7:0]  x_in,
     input clk,
