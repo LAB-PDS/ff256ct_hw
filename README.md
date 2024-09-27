@@ -1,4 +1,4 @@
-# Codes of the paper entitled "Hardware architectures for computing the cosine transforms over the finite ﬁeld $\mathbb{F}_{2^8}$."
+# Codes of the paper entitled "Hardware architectures for computing the cosine transforms over the finite ﬁeld $\mathbb{F}_{2^8}$".
 
 Authors:  José R. de Oliveira Neto and Vítor A. Coutinho
 
@@ -29,12 +29,12 @@ This project consists of the following folders:
 - **HPS-APPS**: *C files developed/used in this work*
 	- **INC**: *library used in all projects;*
 	- **ff256_cosine_transform**: *C codes used to test the four types of the finite field of characteristic two cosine transforms (FF2CT) for the parallel-combinational and parallel-pipelined architectures;*
-	- **ff256_cosine_transform_seq**: *C codes used to test the four types of the FF2CT for the sequential architecture*
+	- **ff256_cosine_transform_seq**: *C codes used to test the four types of the FF2CT for the sequential architecture;*
 	- **ff256_multiplier:** *C codes used to test the general multiplier;*
 	- **ff256_multiplier_by_const:** *C codes used to test the multiplier by constants;*
 - **PC**: *Python files developed/used in this work*
 	- **ff256_cosine_transform:** *Python codes used to test the four types of the finite field of characteristic two cosine transforms (FF2CT) for the parallel-combinational and parallel-pipelined architectures;*
-	- **ff256_mult:** *Python codes used to test the four types of the FF2CT for the sequential architecture*
+	- **ff256_mult:** *Python codes used to test the four types of the FF2CT for the sequential architecture;*
 	- **ff256_mult_const:** *Python codes used to test the multiplier by constants.*
 
 ### <a id='requirements'></a> Usage and Requirements:
