@@ -2,7 +2,7 @@
 `define PWORD 8'b00011101
 
 //implementation of a basic multiplication x.f(x) in field GF(2^8)
-module xfx_mult(f,v);
+module ff256_mult_xfx_mult(f,v);
     input wire [7:0] f;
     output wire [7:0] v;
 

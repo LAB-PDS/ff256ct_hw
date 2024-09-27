@@ -1,11 +1,8 @@
-
-`include "xfx_mult.v"
-
 /*
 Implementation of multiplication f_in * p_in = p_out in GF(2^8)
 No pipeline version.
 */
-module ff_mult(f_in, p_in, p_out);
+module ff256_mult_multiplier(f_in, p_in, p_out);
     input wire [7:0] f_in;
     input wire [7:0] p_in;
     output wire [7:0] p_out;
@@ -13,13 +10,13 @@ module ff_mult(f_in, p_in, p_out);
     wire [7:0] xfx, x2fx, x3fx, x4fx, x5fx, x6fx, x7fx;
     wire [7:0] p0, p1, p2, p3, p4, p5, p6, p7;
 
-    xfx_mult m0 (f_in, xfx);
-    xfx_mult m1 (xfx, x2fx);
-    xfx_mult m2 (x2fx, x3fx);
-    xfx_mult m3 (x3fx, x4fx);
-    xfx_mult m4 (x4fx, x5fx);
-    xfx_mult m5 (x5fx, x6fx);
-    xfx_mult m6 (x6fx, x7fx);
+    ff256_mult_xfx_mult m0 (f_in, xfx);
+    ff256_mult_xfx_mult m1 (xfx, x2fx);
+    ff256_mult_xfx_mult m2 (x2fx, x3fx);
+    ff256_mult_xfx_mult m3 (x3fx, x4fx);
+    ff256_mult_xfx_mult m4 (x4fx, x5fx);
+    ff256_mult_xfx_mult m5 (x5fx, x6fx);
+    ff256_mult_xfx_mult m6 (x6fx, x7fx);
 
     assign p0 = p_in[0]? f_in : 8'd0;
     assign p1 = p_in[1]? xfx : 8'd0;
