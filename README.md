@@ -2,7 +2,7 @@
 
 Authors:  José R. de Oliveira Neto and Vítor A. Coutinho
 
-Contact information: <joserodrigues.oliveiraneto@ufpe.br> or <vitor.coutinho@ufrpe.br >
+Contact information: <joserodrigues.oliveiraneto@ufpe.br> or <vitor.coutinho@ufrpe.br>
 
 ## Table of contents
 1. [General information](#general_information)
@@ -25,7 +25,7 @@ This project consists of the following folders:
 		- **ff256_cosine_transform:** *hdl files related to the parallel-combinational and parallel-pipelined architectures;*
 		- **ff256_cosine_transform_sequential:** *hdl files related to the sequential architecture;*
 		- **ff256_mult**: *hdl files related to the general multiplier;*
-		- **ff256_mult_by_const:**  *hdl files related to the general multiplier;*
+		- **ff256_mult_by_const:** *hdl files related to the multiplier by constants;*
 - **HPS-APPS**: *C files developed/used in this work*
 	- **INC**: *library used in all projects;*
 	- **ff256_cosine_transform**: *C codes used to test the four types of the finite field of characteristic two cosine transforms (FF2CT) for the parallel-combinational and parallel-pipelined architectures;*
