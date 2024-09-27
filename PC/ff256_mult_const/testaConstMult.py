@@ -46,7 +46,7 @@ if __name__ == '__main__':
     print('Creating the UDP socket')
     msgFromClient       = "00112233"
     bytesToSend         = str.encode(msgFromClient)
-    serverAddressPort   = ("192.168.1.23", 9090) #("192.168.0.106", 9090)
+    serverAddressPort   = ("192.168.1.27", 9090) #("192.168.0.106", 9090)
     bufferSize          = len(bytesToSend)
     # Create a UDP socket at client side
     UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)

@@ -7,7 +7,7 @@ import numpy
 
 msgFromClient       = "Testando comunicacao"
 bytesToSend         = str.encode(msgFromClient)
-serverAddressPort   = ("192.168.1.17", 9090) 
+serverAddressPort   = ("192.168.1.23", 9090) 
 bufferSize          = len(bytesToSend)
 
  

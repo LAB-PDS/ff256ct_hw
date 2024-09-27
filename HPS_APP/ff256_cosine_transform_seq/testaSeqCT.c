@@ -1,7 +1,7 @@
 /*
-* FUNCAO : Testa a RAM do periferico 
+* FUNCAO : Tests of the direct computation of the FF256CT
 * PROJETO: Finite Field 256 Cosine Transforms
-* DATA DE CRIACAO: 27/08/2024
+* DATA DE CRIACAO: 30/08/2024
 */
 
 
@@ -35,15 +35,14 @@
 #include "ram.h"
 #include "peripheral.h"
 
-#define PORT_1_MEM_BASE  0x55000
-#define PORT_1_ADDR_SPAN 4
+#define PORT_1_MEM_BASE  0x5b000
+#define PORT_1_ADDR_SPAN 1
 #define PORT_1_MEM_SPAN PORT_1_ADDR_SPAN*32
-#define PORT_1_CMD_REG  3
 
 //UDP
 #define N 		 64
 #define N_PACKET 8
-#define N_BUF    8
+#define N_BUF    16
 
 int main() 
 {
@@ -85,43 +84,56 @@ int main()
 	port01 = peripheral_create(PORT_1_MEM_BASE, PORT_1_MEM_SPAN);
 
 	printf("*---------------------------------------------------------------------\n");
-	printf("* FUNCTION       : FF256 MULTIPLIER TEST\n");
+	printf("* FUNCTION       : SEQUENTIAL COMPUTATION OF THE FF2CT TEST\n");
 	printf("* PROJECT        : FINITE FIELD GF256 COSINE TRANSFORMS\n");
-	printf("* DATE           : 29/08/2024\n");
+	printf("* DATE           : 30/08/2024\n");
 	printf("*---------------------------------------------------------------------\n");
 
 	while(1)
 	{
-		printf("Waiting package from PC...\n");
+printf("Waiting package from PC...\n");
 		bzero(buf,N_BUF);
 	   	n = recvfrom(sock,buf,N_BUF,0,(struct sockaddr *)&from,&fromlen);
 	   	if (n < 0) printf("recvfrom");
 	   	else
 	   	{
+			printf("Reseting: %x, data: %x\n",8, 0);
+			peripheral_write32(port01,2,0);
 			printf("%s\n", buf);
 			printf("Processing the received data\n");
-			buf_int = converteVetorToInt(buf,4,true);
+			buf_int = converteVetorToInt(buf,8,0);
 			printf("value received %x\n",buf_int);
-			mem_write = (0xFF00 & buf_int)>>8;
-			mem_write = mem_write + (mem_write << 8);
-			mem_write = mem_write + (mem_write << 16);
-			printf("Writing address: %x, data: %x\n",0, mem_write);
-			peripheral_write32(port01,0,mem_write);
-			printf("Writing address: %x, data: %x\n",4, mem_write);
-			peripheral_write32(port01,1,mem_write);
+			printf("Writing address: %x, data: %x\n",0, buf_int);
+			peripheral_write32(port01,0,buf_int);
+			buf_int = converteVetorToInt(&buf[8],8,0);
+			printf("Writing address: %x, data: %x\n",4, buf_int);
+			peripheral_write32(port01,1,buf_int);
+			buf_int =  1;
+			printf("Starting: %x, data: %x\n",2*4, buf_int);
+			peripheral_write32(port01,2,buf_int);
 			usleep(1000);
-			printf("Reading the multiplication results...\n");
-			mem_read =  peripheral_read32(port01,0);	
-			printf("Reading address: %X, data: %X\n", 0, mem_read);		
+
+			mem_read =  peripheral_read32(port01,2);
+			while((0x1 && mem_read) == 0)
+			{
+				buf_int =  1;
+				printf("Starting: %x, data: %x\n",2*4, buf_int);
+				peripheral_write32(port01,2,buf_int);
+				usleep(1000);
+				mem_read =  peripheral_read32(port01,2);
+				printf("Reading address: %X, data: %X\n", 2*4, mem_read);
+				usleep(1000);
+			}
+			printf("Reading the transform results...\n");
+			mem_read =  peripheral_read32(port01,3);	
+			printf("Reading address: %X, data: %X\n", 3*4, mem_read);		
 			converteInttoASCII(buf, mem_read, 4);
 			printf("Buffer: %s\n",buf);
-			n = sendto(sock,buf,N_BUF,0,(struct sockaddr *)&from,fromlen);
-			if (n  < 0) printf("sendto\n");
-			usleep(1000);
-			mem_read =  peripheral_read32(port01,1);	
-			printf("Reading address: %X, data: %X\n", 4, mem_read);		
-			converteInttoASCII(buf, mem_read, 4);
+			mem_read =  peripheral_read32(port01,4);	
+			printf("Reading address: %X, data: %X\n", 4*4, mem_read);		
+			converteInttoASCII(&buf[8], mem_read, 4);
 			printf("Buffer: %s\n",buf);
+			usleep(1000);
 			n = sendto(sock,buf,N_BUF,0,(struct sockaddr *)&from,fromlen);
 			if (n  < 0) printf("sendto\n");
 			usleep(1000);

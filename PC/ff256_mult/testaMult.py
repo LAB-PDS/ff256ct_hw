@@ -46,12 +46,13 @@ if __name__ == '__main__':
     print('Criando ao socket UDP')
     msgFromClient       = "Testando comunicacao"
     bytesToSend         = str.encode(msgFromClient)
-    serverAddressPort   = ("192.168.1.18", 9090) #("192.168.0.106", 9090)
+    serverAddressPort   = ("192.168.1.21", 9090) #("192.168.0.106", 9090)
     bufferSize          = len(bytesToSend)
     # Create a UDP socket at client side
     UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-
+    print("ATENCAO! O IP ESTÁ CORRETO???")
+    print(serverAddressPort)
     print('Abrindo o arquivo com os valores de A*B = C')
     filename = "multiplicacoes_gf256.txt"
     input_file = open(filename, 'r')
