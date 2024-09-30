@@ -100,7 +100,7 @@ int main()
 	   	{
 			printf("%s\n", buf);
 			printf("Processing the received data\n");
-			buf_int = converteVetorToInt(buf,4);
+			buf_int = converteVetorToInt(buf,4,true);
 			printf("value received %x\n",buf_int);
 			mem_write = (0xFF00 & buf_int)>>8;
 			mem_write = mem_write + (mem_write << 8);
