@@ -13,7 +13,7 @@ Contact information: <joserodrigues.oliveiraneto@ufpe.br> or <vitor.coutinho@ufr
 
 ### <a id='general_information'></a> General information:
 
-The primary purpose of this repository is to make available the files needed to reproduce the results depicted in the paper entitled **Hardware architectures for computing the cosine transforms over the finite ﬁeld $\mathbb{F}_{2^8}$**, submitted to the **IET Electronics Letters**. If accepted for publication, the link to the manuscript will be placed here.
+The primary purpose of this repository is to make available the files needed to reproduce the results depicted in the paper entitled **Hardware architectures for computing the cosine transforms over the finite ﬁeld $\mathbb{F}_{2^8}$**, published in the **IET Electronics Letters**: [DOI: 10.1049/ell2.70097](http://dx.doi.org/10.1049/ell2.70097).
 
 ### <a id='content'></a> Content:
 
